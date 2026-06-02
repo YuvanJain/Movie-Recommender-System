@@ -115,7 +115,7 @@ def train_with_audit(movies_df: pd.DataFrame, audit: bool = True) -> dict:
         f"shape={vectors.shape}, max_features={max_features}, vocab={len(vectorizer.vocabulary_)}",
     )
 
-    similarity = cosine_similarity(vectors)
+    similarity = cosine_similarity(vectors).astype(np.float16)
     log_step(
         "similarity_matrix",
         similarity.shape[0],

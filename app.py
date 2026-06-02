@@ -123,7 +123,7 @@ def resolve_movie_id(movie_id, title):
 def fetch_poster(movie_id, title=None):
     api_key = os.getenv("TMDB_API_KEY")
     if not api_key:
-        return "https://via.placeholder.com/500x750?text=TMDB+API+Key+Missing"
+        return "https://placehold.co/500x750?text=TMDB+API+Key+Missing"
 
     mid = resolve_movie_id(movie_id, title)
     if mid is None and title:
@@ -141,7 +141,7 @@ def fetch_poster(movie_id, title=None):
             pass
 
     if mid is None:
-        return "https://via.placeholder.com/500x750?text=No+Poster+Found"
+        return "https://placehold.co/500x750?text=No+Poster+Found"
 
     try:
         response = requests.get(
@@ -153,9 +153,9 @@ def fetch_poster(movie_id, title=None):
         data = response.json()
         if data.get("poster_path"):
             return "https://image.tmdb.org/t/p/w500/" + data["poster_path"]
-        return "https://via.placeholder.com/500x750?text=No+Poster+Found"
+        return "https://placehold.co/500x750?text=No+Poster+Found"
     except requests.RequestException:
-        return "https://via.placeholder.com/500x750?text=No+Poster+Found"
+        return "https://placehold.co/500x750?text=No+Poster+Found"
 
 
 @st.cache_data

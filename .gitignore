@@ -20,9 +20,9 @@ data/*.db
 data/*.csv
 data/tmdb_cache/
 
-# Serialized models/objects
-model/*.pkl
+# Serialized models/objects (allow the model folder)
 *.pkl
+!model/*.pkl
 
 # Environments
 .env
