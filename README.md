@@ -109,7 +109,3 @@ Use the sidebar **Admin Dashboard** page or the **Statistics** tab for analytics
 This product uses the TMDB API but is not endorsed or certified by TMDB.
 
 ---
-<<<<<<< HEAD
-
-=======
->>>>>>> 8ebd0e9 (Improve movie recommendation system)
