@@ -736,11 +736,23 @@ try:
     movies = enrich_movies_with_metadata(movies)
     TITLE_TO_TMDB_ID.update(load_title_to_tmdb_id())
 except (FileNotFoundError, ValueError) as exc:
-    st.error(
-        "Model files not found or outdated. Please run `python train.py` to rebuild the model."
-    )
-    st.caption(str(exc))
-    st.stop()
+    # On Streamlit Cloud, the large pickled files aren't in Git. We auto-build them on the fly.
+    with st.spinner("Model files not found or outdated. Rebuilding the recommendation model (approx. 30s-1m)..."):
+        try:
+            from train import train_model
+            train_model()
+            recommender = MovieRecommender.load()
+            movies = recommender.movies
+            movies = enrich_movies_with_metadata(movies)
+            TITLE_TO_TMDB_ID.update(load_title_to_tmdb_id())
+            st.success("Model built successfully!")
+        except Exception as train_exc:
+            st.error(
+                "Model files not found, and auto-training failed. Please run `python train.py` locally or check settings."
+            )
+            st.caption(f"Load error: {str(exc)}")
+            st.caption(f"Training error: {str(train_exc)}")
+            st.stop()
 
 init_db()
 init_feedback_db()

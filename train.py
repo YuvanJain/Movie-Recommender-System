@@ -9,9 +9,16 @@ from recommendation_model import train_with_audit
 load_dotenv()
 
 DATA_SOURCE = os.getenv("DATA_SOURCE", "combined").lower()
+
+# Fallback: if TMDB_API_KEY is not set, force DATA_SOURCE to legacy to prevent failure on cloud deployment
+if not os.getenv("TMDB_API_KEY") and DATA_SOURCE != "legacy":
+    print("TMDB_API_KEY is missing. Defaulting to DATA_SOURCE=legacy to train without API key.")
+    DATA_SOURCE = "legacy"
+
 TMDB_CSV_PATH = os.path.join("data", "tmdb_movies.csv")
 LEGACY_MOVIES = "data/tmdb_5000_movies.csv"
 LEGACY_CREDITS = "data/tmdb_5000_credits.csv"
+
 
 
 def download_file(url, local_filename):
