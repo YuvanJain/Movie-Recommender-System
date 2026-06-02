@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.toast
+.cache
+
+# Databases
+data/*.db
+*.db
+
+# Data & CSV files
+data/*.csv
+data/tmdb_cache/
+
+# Serialized models/objects
+model/*.pkl
+*.pkl
+
+# Environments
+.env
+
+# IDE / System
+.vscode/
+.idea/
+.DS_Store
